@@ -39,32 +39,4 @@
     </form>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>#</th>
-                <th>@Html.DisplayNameFor(m => m.First().Type)</th>
-                <th>@Html.DisplayNameFor(m => m.First().Date)</th>
-                <th>@Html.DisplayNameFor(m => m.First().Price)</th>
-            </tr>
-            @{
-                int i = 0;
-                foreach (var accountingDetail in Model)
-                {
-                    i++;
-                    <tr>
-                        <td>@i</td>
-                        <td>@accountingDetail.Type</td>
-                        <td>@accountingDetail.Date</td>
-                        <td>@accountingDetail.Price</td>
-                    </tr>
-                }
-
-            }
-
-
-
-        </table>
-    </div>
-</div>
+@Html.Partial("_AccountingDetail", Model)

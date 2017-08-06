@@ -1,0 +1,24 @@
+﻿@model List<Accounting.Models.ViewModels.AccountingDetailViewModel>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.First().No)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Type)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Date)</th>
+                <th>@Html.DisplayNameFor(m => m.First().Price)</th>
+            </tr>
+
+                @foreach (var accountingDetail in Model)
+                {
+                    <tr>
+                        <td>@accountingDetail.No</td>
+                        <td>@accountingDetail.Type</td>
+                        <td>@accountingDetail.Date</td>
+                        <td>@accountingDetail.Price</td>
+                    </tr>
+                }
+
+        </table>
+    </div>
+</div>

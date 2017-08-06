@@ -13,5 +13,7 @@ namespace Accounting.Models.ViewModels {
         public string Date { get; set; }
         [Display(Name = "金額")]
         public string Price { get; set; }
+        [Display(Name = "#")]
+        public int No { get; set; }
     }
 }

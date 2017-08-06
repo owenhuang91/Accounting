@@ -30,12 +30,13 @@ namespace Accounting.Controllers
 
             try
             {
-                accountingDetails = GetAccountingDetail().Select(m => new AccountingDetailViewModel()
+                accountingDetails = GetAccountingDetail().Select((m, i) => new AccountingDetailViewModel()
                 {
+                    No = i + 1,
                     Type = AccountingType[m.Type],
                     Date = m.Date.ToString("yyyy-MM-dd"),
                     Price = m.Price.ToString("#,0"),
-            }).ToList();
+                }).ToList();
             }
             catch (Exception)
             {
