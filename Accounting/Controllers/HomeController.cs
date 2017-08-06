@@ -41,7 +41,7 @@ namespace Accounting.Controllers
             catch (Exception)
             {
                 //導向錯誤頁
-                RedirectToAction("Error");
+                return RedirectToAction("Error");
             }
 
             return View(accountingDetails);
