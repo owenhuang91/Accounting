@@ -40,6 +40,7 @@ namespace Accounting.Controllers
             }
             catch (Exception)
             {
+                //TODO:寫log
                 //導向錯誤頁
                 return RedirectToAction("Error");
             }
