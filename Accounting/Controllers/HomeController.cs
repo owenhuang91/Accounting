@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Accounting.Models;
 using Accounting.Models.ViewModels;
+using PagedList;
 
 namespace Accounting.Controllers {
 
@@ -18,17 +19,21 @@ namespace Accounting.Controllers {
         /// 記帳功能頁面
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index() {
-            var accountingDetails = new List<AccountingDetailViewModel>();
+        public ActionResult Index(int page = 1, int count = 10) {
+
+            IPagedList<AccountingDetailViewModel> accountingDetails;
 
             try {
+                //TODO：需再調整寫法，不應讀回全部資料
                 accountingDetails = accountingService.GetAllAccountingDetail()
+                    .OrderByDescending(m => m.Date)
                     .Select((m, i) => new AccountingDetailViewModel() {
                         No = i + 1,
                         Type = m.Type,
                         Date = m.Date.ToString("yyyy-MM-dd"),
                         Price = m.Price.ToString("#,0"),
-                    }).ToList();
+                    }).ToPagedList(page, count);
+
             } catch (Exception) {
                 //TODO:寫log
                 //導向錯誤頁
