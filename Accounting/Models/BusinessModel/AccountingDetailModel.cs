@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Accounting.Models {
+namespace Accounting.Models.BusinessModel {
     public class AccountingDetailModel {
 
         public string Type { get; set; }
