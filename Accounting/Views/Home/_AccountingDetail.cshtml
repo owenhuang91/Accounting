@@ -1,15 +1,15 @@
-﻿@model IPagedList<Accounting.Models.ViewModels.AccountingDetailViewModel>
+﻿@model PagingModel<AccountingDetailViewModel>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().No)</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Type)</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Date)</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
+                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().No)</th>
+                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Type)</th>
+                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Date)</th>
+                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Price)</th>
             </tr>
 
-            @foreach (var accountingDetail in Model) {
+            @foreach (var accountingDetail in Model.Data) {
                 <tr>
                     <td>@accountingDetail.No</td>
                     <td>@accountingDetail.Type</td>
@@ -19,6 +19,6 @@
             }
 
         </table>
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @Html.Pagger(Model.CurrentPage, Model.LastPage)
     </div>
 </div>

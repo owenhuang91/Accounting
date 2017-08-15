@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Accounting.Models;
+using Accounting.Models.BusinessModel;
 using Accounting.Models.ViewModels;
-using PagedList;
 
 namespace Accounting.Controllers {
 
@@ -20,20 +19,20 @@ namespace Accounting.Controllers {
         /// </summary>
         /// <returns></returns>
         public ActionResult Index(int page = 1, int count = 10) {
-
-            IPagedList<AccountingDetailViewModel> accountingDetails;
+            var accountingDetails = new PagingModel<AccountingDetailViewModel>();
 
             try {
-                //TODO：需再調整寫法，不應讀回全部資料
-                accountingDetails = accountingService.GetAllAccountingDetail()
-                    .OrderByDescending(m => m.Date)
-                    .Select((m, i) => new AccountingDetailViewModel() {
-                        No = i + 1,
-                        Type = m.Type,
-                        Date = m.Date.ToString("yyyy-MM-dd"),
-                        Price = m.Price.ToString("#,0"),
-                    }).ToPagedList(page, count);
+                var serviceResult = accountingService.GetAllAccountingDetail(page, count);
 
+                accountingDetails.CurrentPage = serviceResult.CurrentPage;
+                accountingDetails.LastPage = serviceResult.LastPage;
+                accountingDetails.Data = serviceResult.Data
+                   .Select((m, i) => new AccountingDetailViewModel() {
+                       No = i + 1,
+                       Type = m.Type,
+                       Date = m.Date.ToString("yyyy-MM-dd"),
+                       Price = m.Price.ToString("#,0"),
+                   }).ToList();
             } catch (Exception) {
                 //TODO:寫log
                 //導向錯誤頁
