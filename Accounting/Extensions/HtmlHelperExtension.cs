@@ -19,7 +19,7 @@ namespace Accounting.Extensions {
                     aBuilder.Attributes["style"] = "background-color: yellow";
                 }
 
-                aBuilder.InnerHtml = $"  {item.Key}  ";
+                aBuilder.InnerHtml = $"&nbsp;&nbsp;{item.Key}&nbsp;&nbsp;";
                 divBuilder.InnerHtml += aBuilder;
             }
 
@@ -27,8 +27,13 @@ namespace Accounting.Extensions {
         }
 
         private static Dictionary<string, int> GetPage(int currentPage, int lastPage) {
+
             var result = new Dictionary<string, int>();
             var tempResult = new Dictionary<string, int>() { [currentPage.ToString()] = currentPage };
+
+            if (currentPage > lastPage) {
+                return result;
+            }
 
             //設定最大頁數
             int maxPage = 10;

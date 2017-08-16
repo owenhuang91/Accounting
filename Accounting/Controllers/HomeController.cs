@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Accounting.Models;
 using Accounting.Models.BusinessModel;
 using Accounting.Models.ViewModels;
+using Accounting.Repository;
 
 namespace Accounting.Controllers {
 
@@ -11,7 +12,8 @@ namespace Accounting.Controllers {
         private AccountingService accountingService;
 
         public HomeController() {
-            accountingService = new AccountingService();
+            var unitOfWork = new UnitOfWork();
+            accountingService = new AccountingService(unitOfWork);
         }
 
         /// <summary>
