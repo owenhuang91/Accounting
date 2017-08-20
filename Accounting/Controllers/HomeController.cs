@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using Accounting.Models;
-using Accounting.Models.BusinessModel;
 using Accounting.Models.ViewModels;
 using Accounting.Repository;
+using PagedList;
 
 namespace Accounting.Controllers {
 
@@ -21,27 +21,19 @@ namespace Accounting.Controllers {
         /// </summary>
         /// <returns></returns>
         public ActionResult Index(int page = 1, int count = 10) {
-            var accountingDetails = new PagingModel<AccountingDetailViewModel>();
+
+            var serviceResult = Enumerable.Empty<AccountingDetailViewModel>();
 
             try {
-                var serviceResult = accountingService.GetAllAccountingDetail(page, count);
+                serviceResult = accountingService.GetAllAccountingDetail().ToPagedList(page, count);
 
-                accountingDetails.CurrentPage = serviceResult.CurrentPage;
-                accountingDetails.LastPage = serviceResult.LastPage;
-                accountingDetails.Data = serviceResult.Data
-                   .Select((m, i) => new AccountingDetailViewModel() {
-                       No = i + 1,
-                       Type = m.Type,
-                       Date = m.Date.ToString("yyyy-MM-dd"),
-                       Price = m.Price.ToString("#,0"),
-                   }).ToList();
             } catch (Exception) {
                 //TODO:寫log
                 //導向錯誤頁
                 return RedirectToAction("Error");
             }
 
-            return View(accountingDetails);
+            return View(serviceResult);
         }
 
         /// <summary>

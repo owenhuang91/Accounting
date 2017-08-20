@@ -10,10 +10,8 @@ namespace Accounting.Models.ViewModels {
         [Display(Name ="類別")]
         public string Type { get; set; }
         [Display(Name = "日期")]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Display(Name = "金額")]
-        public string Price { get; set; }
-        [Display(Name = "#")]
-        public int No { get; set; }
+        public decimal Price { get; set; }
     }
 }

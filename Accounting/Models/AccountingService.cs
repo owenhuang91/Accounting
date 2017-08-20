@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Accounting.Models.BusinessModel;
+using Accounting.Models.ViewModels;
 using Accounting.Repository;
 
 namespace Accounting.Models {
@@ -14,19 +14,13 @@ namespace Accounting.Models {
             _accountBookRepository = new GenericRepository<AccountBook>(_unitOfWork);
         }
 
-        public PagingModel<AccountingDetailModel> GetAllAccountingDetail(int page, int count) {
+        public IQueryable<AccountingDetailViewModel> GetAllAccountingDetail() {
 
-            var result = new PagingModel<AccountingDetailModel>() {
-                Data = _accountBookRepository.GetAll().OrderByDescending(m => m.Dateee)
-                .Skip((page - 1) * count).Take(count)
-                .Select(m => new AccountingDetailModel() {
-                    Date = m.Dateee,
-                    Price = m.Amounttt,
-                    Type = ((CategoryEumn)m.Categoryyy).ToString(),
-                }).ToList(),
-                CurrentPage = page,
-                LastPage = Convert.ToInt32(Math.Ceiling(_accountBookRepository.GetAll().Count() / (double)count)),
-            };
+            var result = _accountBookRepository.Lookup().OrderByDescending(m=>m.Dateee).Select(m=>new AccountingDetailViewModel() {
+                Date = m.Dateee,
+                Price = m.Amounttt,
+                Type = ((CategoryEumn)m.Categoryyy).ToString(),
+            });
             return result;
         }
 

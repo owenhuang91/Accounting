@@ -12,6 +12,6 @@ namespace Accounting.Repository {
         /// 取得所有資料
         /// </summary>
         /// <returns>目的資料 (多筆)</returns>
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> Lookup();
     }
 }

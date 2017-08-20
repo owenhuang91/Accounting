@@ -19,7 +19,7 @@ namespace Accounting.Repository {
         public GenericRepository(IUnitOfWork unitOfWork) {
             UnitOfWork = unitOfWork;
         }
-        public IQueryable<TEntity> GetAll() {
+        public IQueryable<TEntity> Lookup() {
             return ObjectSet;
         }
     }

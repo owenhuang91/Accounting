@@ -1,24 +1,25 @@
-﻿@model PagingModel<AccountingDetailViewModel>
+﻿@model IPagedList<AccountingDetailViewModel>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().No)</th>
-                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Type)</th>
-                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Date)</th>
-                <th>@Html.DisplayNameFor(m => m.Data.FirstOrDefault().Price)</th>
+                <th>#</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Type)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Date)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
             </tr>
-
-            @foreach (var accountingDetail in Model.Data) {
-                <tr>
-                    <td>@accountingDetail.No</td>
-                    <td>@accountingDetail.Type</td>
-                    <td>@accountingDetail.Date</td>
-                    <td>@accountingDetail.Price</td>
-                </tr>
+            @{
+                int i = 0;
+                foreach (var accountingDetail in Model) {
+                    <tr>
+                        <td>@(++i)</td>
+                        <td>@accountingDetail.Type</td>
+                        <td>@accountingDetail.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@accountingDetail.Price.ToString("#,0")</td>
+                    </tr>
+                }
             }
-
         </table>
-        @Html.Pagger(Model.CurrentPage, Model.LastPage)
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 </div>
