@@ -20,7 +20,26 @@ namespace Accounting.Controllers {
         /// 記帳功能頁面
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int page = 1, int count = 10) {
+        public ActionResult Index() {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(AccountingDetailViewModel data) {
+
+
+            if (ModelState.IsValid == false) {
+                return Json(new { isSucess = false });
+            }
+
+            accountingService.CreateAccountingDetail(data);
+            accountingService.Save();
+            return Json(new { isSucess = true });
+        }
+
+        [HttpGet]
+        public ActionResult AccountingDetail(int page = 1, int count = 10) {
 
             var serviceResult = Enumerable.Empty<AccountingDetailViewModel>();
 
@@ -33,7 +52,7 @@ namespace Accounting.Controllers {
                 return RedirectToAction("Error");
             }
 
-            return View(serviceResult);
+            return PartialView("_AccountingDetail", serviceResult);
         }
 
         /// <summary>

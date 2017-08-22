@@ -1,10 +1,10 @@
 ﻿@model IPagedList<AccountingDetailViewModel>
-<div class="row">
+<div id="account-detail" class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
                 <th>#</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Type)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Category)</th>
                 <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Date)</th>
                 <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
             </tr>
@@ -13,7 +13,7 @@
                 foreach (var accountingDetail in Model) {
                     <tr>
                         <td>@(++i)</td>
-                        <td>@accountingDetail.Type</td>
+                        <td>@accountingDetail.Category.ToString()</td>
                         <td>@accountingDetail.Date.ToString("yyyy-MM-dd")</td>
                         <td>@accountingDetail.Price.ToString("#,0")</td>
                     </tr>
