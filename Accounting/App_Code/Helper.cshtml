@@ -1,0 +1,20 @@
+﻿@helper Color(Accounting.Models.CategoryEumn category) {
+
+string color;
+
+
+switch ((int)category) {
+    case 0:
+        color = "red";
+        break;
+    case 1:
+        color = "blue";
+        break;
+    default:
+        color = null;
+        break;
+}
+
+<span style="color:@color">@category.ToString()</span>
+
+}

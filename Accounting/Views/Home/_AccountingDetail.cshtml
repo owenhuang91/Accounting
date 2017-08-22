@@ -13,7 +13,7 @@
                 foreach (var accountingDetail in Model) {
                     <tr>
                         <td>@(++i)</td>
-                        <td>@accountingDetail.Category.ToString()</td>
+                        <td>@Helper.Color(accountingDetail.Category)</td>
                         <td>@accountingDetail.Date.ToString("yyyy-MM-dd")</td>
                         <td>@accountingDetail.Price.ToString("#,0")</td>
                     </tr>
