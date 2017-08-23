@@ -32,9 +32,15 @@ namespace Accounting.Controllers {
             if (ModelState.IsValid == false) {
                 return Json(new { isSucess = false });
             }
+            try {
+                accountingService.CreateAccountingDetail(data);
+                accountingService.Save();
+            } catch (Exception) {
+                //TODO:寫log
+                //導向錯誤頁
+                return RedirectToAction("Error");
+            }
 
-            accountingService.CreateAccountingDetail(data);
-            accountingService.Save();
             return Json(new { isSucess = true });
         }
 
