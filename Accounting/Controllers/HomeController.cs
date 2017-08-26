@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Web.Mvc;
 using Accounting.Models;
@@ -24,27 +25,42 @@ namespace Accounting.Controllers {
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult Create(AccountingDetailViewModel data) {
+        public ActionResult Create(AccountingDetailViewModel newModel) {
 
 
-            if (ModelState.IsValid == false) {
-                return Json(new { isSucess = false });
+            if (ModelState.IsValid) {
+                try {
+                    accountingService.CreateAccountingDetail(newModel);
+                    accountingService.Save();
+                } catch (Exception) {
+                    //TODO:寫log
+                    //導向錯誤頁
+                    return RedirectToAction("Error");
+                }
             }
-            try {
-                accountingService.CreateAccountingDetail(data);
-                accountingService.Save();
-            } catch (Exception) {
-                //TODO:寫log
-                //導向錯誤頁
-                return RedirectToAction("Error");
-            }
 
-            return Json(new { isSucess = true });
+            return View("Index", newModel);
         }
 
-        [HttpGet]
+        [HttpPost]
+        public ActionResult CreateForAjax(AccountingDetailViewModel newModel) {
+
+            if (ModelState.IsValid) {
+                try {
+                    accountingService.CreateAccountingDetail(newModel);
+                    accountingService.Save();
+                    return AccountingDetail();
+                } catch (Exception) {
+                    //TODO:寫log
+                    return Content("新增失敗!");
+                }
+            } else {
+                return Content("資料驗證失敗!");
+            }
+        }
+
+        [ChildActionOnly]
         public ActionResult AccountingDetail(int page = 1, int count = 10) {
 
             var serviceResult = Enumerable.Empty<AccountingDetailViewModel>();
@@ -60,6 +76,7 @@ namespace Accounting.Controllers {
 
             return PartialView("_AccountingDetail", serviceResult);
         }
+
 
         /// <summary>
         /// 錯誤頁面
