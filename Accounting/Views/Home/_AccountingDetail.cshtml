@@ -1,12 +1,12 @@
-﻿@model IPagedList<AccountingDetailViewModel>
+﻿@model IEnumerable<AccountingDetailViewModel>
 <div id="account-detail" class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
                 <th>#</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Category)</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Date)</th>
-                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
+                <th>@Html.DisplayNameFor(m => m.Category)</th>
+                <th>@Html.DisplayNameFor(m => m.Date)</th>
+                <th>@Html.DisplayNameFor(m => m.Price)</th>
             </tr>
             @{
                 int i = 0;
@@ -20,6 +20,6 @@
                 }
             }
         </table>
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
     </div>
 </div>
