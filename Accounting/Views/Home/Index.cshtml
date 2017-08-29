@@ -43,3 +43,16 @@
 @Html.Action("AccountingDetail")
 
 
+
+
+@section Scripts {
+    <script>
+        $.validator.addMethod("greaterthanzero", function (value, element) {
+            if (value > 0) {
+                return true;
+            }
+        });
+        $.validator.unobtrusive.adapters.addBool("greaterthanzero");
+    </script>
+}
+

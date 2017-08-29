@@ -159,6 +159,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValidateController.cs" />
     <Compile Include="Extensions\HtmlHelperExtension.cs" />
+    <Compile Include="Filters\GreaterThanZeroAttribute.cs" />
     <Compile Include="Filters\RemoteDoublePlusAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
