@@ -7,6 +7,8 @@ namespace Accounting.Models.ViewModels {
 
     public class AccountingDetailViewModel {
 
+        public Guid id { get; set; }
+
         [Display(Name = "日期")]
         [RemoteDoublePlus("LessThanOrEqualToToday", "Valid", "", ErrorMessage = "日期不得大於今天")]
         [DataType(DataType.Date)]

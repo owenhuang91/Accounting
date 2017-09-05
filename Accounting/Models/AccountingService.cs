@@ -3,30 +3,39 @@ using System.Linq;
 using Accounting.Models.ViewModels;
 using Accounting.Repository;
 
-namespace Accounting.Models {
+namespace Accounting.Models
+{
 
-    public class AccountingService {
+    public class AccountingService
+    {
         private IRepository<AccountBook> _accountBookRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountingService(IUnitOfWork unitOfWork) {
+        public AccountingService(IUnitOfWork unitOfWork)
+        {
             _unitOfWork = unitOfWork;
             _accountBookRepository = new GenericRepository<AccountBook>(_unitOfWork);
         }
 
-        public IQueryable<AccountingDetailViewModel> GetAllAccountingDetail() {
+        public IQueryable<AccountingDetailViewModel> GetAllAccountingDetail()
+        {
 
-            var result = _accountBookRepository.Lookup().OrderByDescending(m => m.Dateee).Select(m => new AccountingDetailViewModel() {
+            var result = _accountBookRepository.Lookup().OrderByDescending(m => m.Dateee).Select(m => new AccountingDetailViewModel()
+            {
                 Date = m.Dateee,
                 Price = m.Amounttt,
                 Category = (CategoryEumn)m.Categoryyy,
+                Description = m.Remarkkk,
+                id = m.Id,
             });
             return result;
         }
 
-        public void CreateAccountingDetail(AccountingDetailViewModel createModel) {
+        public void CreateAccountingDetail(AccountingDetailViewModel createModel)
+        {
 
-            var accountBook = new AccountBook() {
+            var accountBook = new AccountBook()
+            {
                 Id = Guid.NewGuid(),
                 Amounttt = (int)createModel.Price,
                 Categoryyy = (int)createModel.Category,
@@ -38,7 +47,8 @@ namespace Accounting.Models {
 
         }
 
-        public void Save() {
+        public void Save()
+        {
             _unitOfWork.Save();
         }
     }
