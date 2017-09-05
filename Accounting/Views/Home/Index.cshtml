@@ -17,14 +17,14 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Price, new { @for = "money", @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.EditorFor(a => a.Price, null, new { htmlAttributes = new { @class = "form-control", id = "money", @type = "number", placeholder = "金額" } })
+                @Html.EditorFor(a => a.Price, new { htmlAttributes = new { @class = "form-control", id = "money", placeholder = "金額" } })
                 @Html.ValidationMessageFor(m => m.Price)
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Date, new { @for = "date", @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.EditorFor(a => a.Date, null, new { htmlAttributes = new { @class = "form-control", id = "date", placeholder = "日期" } })
+                @Html.EditorFor(a => a.Date, new { htmlAttributes = new { @class = "form-control", id = "date", placeholder = "日期" } })
                 @Html.ValidationMessageFor(m => m.Date)
             </div>
         </div>

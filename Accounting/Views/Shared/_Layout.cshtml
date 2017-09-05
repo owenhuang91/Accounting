@@ -7,6 +7,7 @@
     <title>我的記帳本</title>
     <link href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,6 +41,12 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
     @RenderSection("scripts", required: false)
+    <script>
+            $(function () {
+                $("[data-datetimepicker]").datetimepicker();
+            });
+    </script>
 </body>
 </html>
